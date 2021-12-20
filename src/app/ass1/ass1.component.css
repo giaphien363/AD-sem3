@@ -1,0 +1,10 @@
+.custom-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.itemSuccess {
+    background-color: green;
+    color: white;
+}

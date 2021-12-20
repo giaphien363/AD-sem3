@@ -1,0 +1,21 @@
+<div class="row p-5">
+    <div class="col-6">
+        <div class="row">
+            <input [(ngModel)]="inputTask" type="text" class="form-control" placeholder="Enter Task">
+            <button (click)="submitInput()" class="btn btn-outline-success mt-3">Add</button>
+        </div>
+    </div>
+    <div class="col-6">
+        <ul *ngFor="let item of listTask" class="list-group">
+            <li [ngClass]="{itemSuccess: item.status === true}" class="list-group-item custom-item">
+                <div>
+                    {{item.name}} <span *ngIf="item.status === true">(Complete)</span>
+                </div>
+                <div>
+                    <i class="fa fa-check mx-2" (click)="changeTask(item.id)"></i>
+                    <i class="fa fa-remove" (click)="deleteTask(item.id)"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
