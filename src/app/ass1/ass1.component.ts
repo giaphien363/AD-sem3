@@ -8,9 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class Ass1Component implements OnInit {
   inputTask: string = 'Read Book';
 
-  listTask = [
-    { id: 1, name: 'Clean house', status: false }
-];
+  listTask = [{ id: 1, name: 'Clean house', status: false }];
 
   public constructor() {}
 
@@ -20,7 +18,10 @@ export class Ass1Component implements OnInit {
       return;
     }
 
-    let newId = this.listTask[this.listTask.length - 1].id + 1;
+    let lastId = this.listTask[this.listTask.length - 1]
+      ? this.listTask[this.listTask.length - 1].id
+      : 1;
+    let newId = lastId + 1;
     let newItem = { id: newId, name: this.inputTask, status: false };
     this.listTask.push(newItem);
 
