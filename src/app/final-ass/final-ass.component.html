@@ -1,0 +1,90 @@
+<div class="row">
+
+    <div class="col-12 text-center mb-3 mt-3">
+        <h1>Product management</h1>
+        <div *ngIf='message' class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong> 
+            <button type="button" class="btn-close" (click)="setMessage('')"></button>
+          </div>
+    </div>
+
+    <div *ngIf="isLoader" class="col-md-8 mx-auto text-center">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoader" class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                    <th scope="col">
+                        <button *ngIf="isUpdate" (click)="resetForm()" class="btn btn-link">create</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <th scope="row">{{product.id}}</th>
+                    <td>{{product.name}}</td>
+                    <td>{{text_truncate(product.description)}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td><button class="btn btn-outline-success" (click)="updateProduct(product.id)">Detail</button></td>
+                    <td><button class="btn btn-outline-danger" (click)="deleteProduct(product.id)">Delete</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div>
+            <span>Page {{currentPage}} of {{totalPage}}
+                <button *ngIf="currentPage != 1" (click)="prePage()" class="btn btn-link">pre</button>
+                <button *ngIf="currentPage != totalPage" (click)="nextPage()" class="btn btn-link">next</button>
+            </span>
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <input type="number" hidden formControlName="id">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" min="0" class="form-control" formControlName="price">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Quantity</label>
+                <input type="number" max="20" min="0" class="form-control" formControlName="quantity">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button [disabled]="isDisabled" type="submit" class="btn btn-outline-primary">{{ isUpdate? 'Update':'Create' }}</button>
+            </div>
+        </form>
+    </div>
+</div>
